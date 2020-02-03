@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index');
+
+/** Route for posts CRUD**/
+Route::get('post/creat/', 'PostController@index');

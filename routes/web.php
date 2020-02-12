@@ -16,6 +16,10 @@ Route::get('/', 'HomeController@index');
 /** Route for categories CRUD**/
 Route::get('category/create/', 'CategoryController@index')->name('category.create');
 Route::post('category/store/', 'CategoryController@store')->name('category.store');
+Route::get('category/all/', 'CategoryController@all')->name('category.all');
+Route::get('category/delete/{id}', 'CategoryController@delete');
+Route::get('category/edit/{id}', 'CategoryController@edit');
+Route::post('category/update/{id}', 'CategoryController@update');
 
 
 

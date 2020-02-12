@@ -79,6 +79,7 @@
   <script src="{{ asset('blog/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('blog/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 
   <!-- Custom scripts for this template -->
   <script src="{{ asset('blog/js/clean-blog.min.js')}}"></script>
@@ -101,6 +102,27 @@
       }
     @endif
   </script>
+
+  <script>  
+         $(document).on("click", "#delete", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to delete?",
+                  text: "Once Delete, This will be Permanently Delete!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Safe Data!");
+                  }
+                });
+            });
+    </script>
 
 </body>
 

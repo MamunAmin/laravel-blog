@@ -12,6 +12,8 @@
 
   <!-- Bootstrap core CSS -->
   <link href="{{ asset('blog/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <!-- Toastr link CSS for notification-->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ asset('blog/img/favicon.ico')}}" type="image/x-icon">
@@ -76,9 +78,29 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{{ asset('blog/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('blog/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
   <!-- Custom scripts for this template -->
   <script src="{{ asset('blog/js/clean-blog.min.js')}}"></script>
+  <script>
+    @if(Session::has('messege'))
+      var type="{{Session::get('alert-type','info')}}"
+      switch(type){
+          case 'info':
+               toastr.info("{{ Session::get('messege') }}");
+               break;
+          case 'success':
+              toastr.success("{{ Session::get('messege') }}");
+              break;
+          case 'warning':
+             toastr.warning("{{ Session::get('messege') }}");
+              break;
+          case 'error':
+              toastr.error("{{ Session::get('messege') }}");
+              break;
+      }
+    @endif
+  </script>
 
 </body>
 

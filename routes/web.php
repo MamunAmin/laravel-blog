@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index');
 
 /** Route for categories CRUD**/
 Route::get('category/create/', 'CategoryController@index')->name('category.create');
+Route::post('category/store/', 'CategoryController@store')->name('category.store');
 
 
 

@@ -25,3 +25,6 @@ Route::post('category/update/{id}', 'CategoryController@update');
 
 /** Route for posts CRUD**/
 Route::get('post/create/', 'PostController@index')->name('post.create');
+Route::post('post/store/', 'postController@store')->name('post.store');
+Route::get('post/all/', 'PostController@all')->name('post.all');
+Route::get('post/view/{id}', 'PostController@view');

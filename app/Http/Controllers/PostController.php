@@ -64,50 +64,61 @@ class PostController extends Controller
 
 	public function delete($id)
 	{
-		$delete = DB::table('categories')->where('id', $id)->delete();
-		if ($delete) {
-        	 $notification=array(
-                'messege'=>'Category Deleted',
+		$post=DB::table('posts')->where('id',$id)->first();
+    	$image=$post->image;
+    	$delete=DB::table('posts')->where('id',$id)->delete();
+    	if ($delete) {
+    		unlink($image);
+    		$notification=array(
+                'messege'=>'Successfully Post Deleted !',
                 'alert-type'=>'success'
                  );
-               return Redirect()->route('category.all')->with($notification);   
-        }
-        else{
-        	  $notification=array(
-                'messege'=>'Something went wrong!',
-                'alert-type'=>'error'
-                 );
-               return Redirect()->back()->with($notification);   
-        }
+             return Redirect()->back()->with($notification);
+    	}
 	}
 	public function edit($id)
     {   
-    	$category=DB::table('categories')->where('id',$id)->first();
-    	return view('category.edit',compact('category'));
+    	$category=DB::table('categories')->get();
+    	$post=DB::table('posts')->where('id',$id)->first();
+    	return view('post.edit',compact('category','post'));
     }
 
     public function update(Request $request,$id)
     {
-    	$validatedData = $request->validate([
-             'name' => 'required|max:25|min:4',
+    	 $validatedData = $request->validate([
+             'title' => 'required|max:200',
+             'details' => 'required',
+             'image' => ' mimes:jpeg,jpg,png,PNG | max:2000',
          ]);
 
     	$data=array();
-    	$data['name']=$request->name;
-        $category=DB::table('categories')->where('id',$id)->update($data);
-        if ($category) {
-        	 $notification=array(
-                'messege'=>'Category Updated',
+    	$data['title']=$request->title;
+    	$data['category_id']=$request->category_id;
+    	$data['details']=$request->details;
+	    $image=$request->file('image');
+    	if ($image) {
+    		$image_name=rand(1,500000);
+            $ext=strtolower($image->getClientOriginalExtension());
+            $image_full_name=$image_name.'.'.$ext;
+            $upload_path='public/frontend/image/';
+            $image_url=$upload_path.$image_full_name;
+            $success=$image->move($upload_path,$image_full_name);
+            $data['image']=$image_url;
+            unlink($request->old_photo);
+            DB::table('posts')->where('id',$id)->update($data);
+             $notification=array(
+                'messege'=>'Successfully Post Updated',
                 'alert-type'=>'success'
                  );
-               return Redirect()->route('category.all')->with($notification);   
-        }
-        else{
-        	  $notification=array(
-                'messege'=>'Nothing to updated',
-                'alert-type'=>'error'
+             return Redirect()->route('post.all')->with($notification);
+    	}else{
+    		 $data['image']=$request->old_photo;
+    		 DB::table('posts')->where('id',$id)->update($data);
+    		 $notification=array(
+                'messege'=>'Successfully Post Updated',
+                'alert-type'=>'success'
                  );
-               return Redirect()->route('category.all')->with($notification);   
-        }
+             return Redirect()->route('post.all')->with($notification);
+    	}
     }
 }

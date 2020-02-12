@@ -28,3 +28,6 @@ Route::get('post/create/', 'PostController@index')->name('post.create');
 Route::post('post/store/', 'postController@store')->name('post.store');
 Route::get('post/all/', 'PostController@all')->name('post.all');
 Route::get('post/view/{id}', 'PostController@view');
+Route::get('post/delete/{id}', 'postController@delete');
+Route::get('post/edit/{id}', 'PostController@edit');
+Route::post('post/update/{id}', 'PostController@update');

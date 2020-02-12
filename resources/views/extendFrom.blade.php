@@ -45,7 +45,7 @@
             <a class="nav-link" href="about.html">All Post</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('post/creat/')}}">Write Post</a>
+            <a class="nav-link" href="{{ route('post.create')}}">Write Post</a>
           </li>
         </ul>
       </div>

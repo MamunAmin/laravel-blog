@@ -13,5 +13,10 @@
 
 Route::get('/', 'HomeController@index');
 
+/** Route for categories CRUD**/
+Route::get('category/create/', 'CategoryController@index')->name('category.create');
+
+
+
 /** Route for posts CRUD**/
-Route::get('post/creat/', 'PostController@index');
+Route::get('post/create/', 'PostController@index')->name('post.create');

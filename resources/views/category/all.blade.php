@@ -25,11 +25,13 @@
       <hr>
       <table class="table table-responsive">
         <tr>
+          <th>S/L</th>
           <th>Category Name</th>
           <th>Action</th>
         </tr>
         @foreach($category as $row)
         <tr>
+          <td>{{ $x++ }}</td>
           <td>{{ $row->name }}</td>
           <td>
             <a href="{{ URL::to('/category/edit/'.$row->id) }}" class="btn btn-sm btn-info">Edit</a>

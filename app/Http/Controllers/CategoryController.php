@@ -41,7 +41,8 @@ class CategoryController extends Controller
 	public function all()
 	{
 		$category = DB::table('categories')->get();
-		return view('category.all', compact('category'));
+        $x = 1;
+		return view('category.all', compact('category', 'x'));
 	}
 
 	public function delete($id)
